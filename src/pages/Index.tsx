@@ -2,12 +2,141 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Star, TrendingUp, Target, Zap, Shield, CheckCircle } from "lucide-react";
+import { Star, TrendingUp, Target, Zap, Shield, CheckCircle, ChevronLeft, ChevronRight, Play } from "lucide-react";
+import { cn } from "@/lib/utils";
+import React from "react";
 import heroProfile from "@/assets/hero-profile.jpg";
 import promiseProfile from "@/assets/promise-profile.jpg";
 import project1 from "@/assets/project-1.jpg";
 import project2 from "@/assets/project-2.jpg";
 import project3 from "@/assets/project-3.jpg";
+
+const testimonialVideos = [
+  {
+    thumbnail: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=800&fit=crop",
+    alt: "Sarah Johnson Video Testimonial",
+    name: "Sarah Johnson",
+    role: "E-commerce Owner"
+  },
+  {
+    thumbnail: "https://images.unsplash.com/photo-1556157382-97eda2f9e2bf?w=600&h=800&fit=crop",
+    alt: "Michael Chen Video Testimonial",
+    name: "Michael Chen",
+    role: "Marketing Director"
+  },
+  {
+    thumbnail: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&h=800&fit=crop",
+    alt: "Emma Rodriguez Video Testimonial",
+    name: "Emma Rodriguez",
+    role: "Founder & CEO"
+  },
+  {
+    thumbnail: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop",
+    alt: "David Martinez Video Testimonial",
+    name: "David Martinez",
+    role: "Growth Manager"
+  },
+  {
+    thumbnail: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&h=800&fit=crop",
+    alt: "Lisa Anderson Video Testimonial",
+    name: "Lisa Anderson",
+    role: "Brand Director"
+  }
+];
+
+const TestimonialCarousel = () => {
+  const [currentIndex, setCurrentIndex] = React.useState(Math.floor(testimonialVideos.length / 2));
+
+  const handleNext = React.useCallback(() => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonialVideos.length);
+  }, []);
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonialVideos.length) % testimonialVideos.length);
+  };
+  
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      handleNext();
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [handleNext]);
+
+  return (
+    <>
+      <div className="relative w-full h-full flex items-center justify-center">
+        {testimonialVideos.map((video, index) => {
+          const offset = index - currentIndex;
+          const total = testimonialVideos.length;
+          let pos = (offset + total) % total;
+          if (pos > Math.floor(total / 2)) {
+            pos = pos - total;
+          }
+
+          const isCenter = pos === 0;
+          const isAdjacent = Math.abs(pos) === 1;
+
+          return (
+            <div
+              key={index}
+              className={cn(
+                'absolute w-48 h-80 md:w-64 md:h-[450px] transition-all duration-500 ease-in-out',
+                'flex items-center justify-center'
+              )}
+              style={{
+                transform: `
+                  translateX(${(pos) * 45}%) 
+                  scale(${isCenter ? 1 : isAdjacent ? 0.85 : 0.7})
+                  rotateY(${(pos) * -10}deg)
+                `,
+                zIndex: isCenter ? 10 : isAdjacent ? 5 : 1,
+                opacity: isCenter ? 1 : isAdjacent ? 0.4 : 0,
+                filter: isCenter ? 'blur(0px)' : 'blur(4px)',
+                visibility: Math.abs(pos) > 1 ? 'hidden' : 'visible',
+              }}
+            >
+              <div className="relative w-full h-full rounded-3xl border-2 border-border/50 shadow-2xl overflow-hidden bg-card">
+                <img
+                  src={video.thumbnail}
+                  alt={video.alt}
+                  className="object-cover w-full h-full"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-full bg-primary/90 backdrop-blur-sm flex items-center justify-center">
+                    <Play className="w-8 h-8 text-primary-foreground ml-1" fill="currentColor" />
+                  </div>
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-center">
+                  <h3 className="font-bold text-lg mb-1">{video.name}</h3>
+                  <p className="text-sm text-muted-foreground">{video.role}</p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      
+      {/* Navigation Buttons */}
+      <Button
+        variant="outline"
+        size="icon"
+        className="absolute left-2 sm:left-8 top-1/2 -translate-y-1/2 rounded-full h-10 w-10 z-20 bg-background/80 backdrop-blur-sm border-border/50"
+        onClick={handlePrev}
+      >
+        <ChevronLeft className="h-5 w-5" />
+      </Button>
+      <Button
+        variant="outline"
+        size="icon"
+        className="absolute right-2 sm:right-8 top-1/2 -translate-y-1/2 rounded-full h-10 w-10 z-20 bg-background/80 backdrop-blur-sm border-border/50"
+        onClick={handleNext}
+      >
+        <ChevronRight className="h-5 w-5" />
+      </Button>
+    </>
+  );
+};
 
 const Index = () => {
   return (
@@ -161,42 +290,14 @@ const Index = () => {
 
       {/* What It's Like Working With Me */}
       <section className="container mx-auto px-4 py-20 bg-card/30">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
             What It's Like Working With Me
           </h2>
-          <div className="h-1 w-32 bg-gradient-to-r from-primary to-accent mx-auto mb-12 rounded-full" />
+          <div className="h-1 w-32 bg-gradient-to-r from-primary to-accent mx-auto mb-8 rounded-full" />
           
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <div className="relative group animate-scale-in">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all" />
-              <Card className="relative p-8 h-full bg-card/80 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all">
-                <div className="aspect-video bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg mb-4 flex items-center justify-center">
-                  <Target className="w-12 h-12 text-primary" />
-                </div>
-                <h3 className="font-semibold text-lg">Strategic Planning</h3>
-              </Card>
-            </div>
-            
-            <div className="relative group animate-scale-in" style={{ animationDelay: '0.1s' }}>
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-primary/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all" />
-              <Card className="relative p-8 h-full bg-card/80 backdrop-blur-sm border-border/50 hover:border-accent/50 transition-all">
-                <div className="aspect-video bg-gradient-to-br from-accent/10 to-primary/10 rounded-lg mb-4 flex items-center justify-center">
-                  <TrendingUp className="w-12 h-12 text-accent" />
-                </div>
-                <h3 className="font-semibold text-lg">Continuous Optimization</h3>
-              </Card>
-            </div>
-            
-            <div className="relative group animate-scale-in" style={{ animationDelay: '0.2s' }}>
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all" />
-              <Card className="relative p-8 h-full bg-card/80 backdrop-blur-sm border-border/50 hover:border-primary/50 transition-all">
-                <div className="aspect-video bg-gradient-to-br from-primary/10 to-accent/10 rounded-lg mb-4 flex items-center justify-center">
-                  <Shield className="w-12 h-12 text-primary" />
-                </div>
-                <h3 className="font-semibold text-lg">Transparent Reporting</h3>
-              </Card>
-            </div>
+          <div className="relative w-full h-[400px] md:h-[500px] flex items-center justify-center [perspective:1000px]">
+            <TestimonialCarousel />
           </div>
         </div>
       </section>
