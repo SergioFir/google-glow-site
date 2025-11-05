@@ -186,7 +186,7 @@ const Index = () => {
               </div>
             </Card>
 
-            <Button variant="hero" size="lg" className="text-base">
+            <Button variant="cta" size="lg" className="text-base">
               Schedule a Call Now
             </Button>
           </div>
@@ -281,7 +281,7 @@ const Index = () => {
           </div>
 
           <div className="text-center mt-12">
-            <Button variant="hero" size="lg">
+            <Button variant="cta" size="lg">
               Let's Work Together
             </Button>
           </div>
@@ -463,7 +463,7 @@ const Index = () => {
           </div>
 
           <div className="text-center mt-12">
-            <Button variant="hero" size="lg">
+            <Button variant="cta" size="lg">
               Join Them Today
             </Button>
           </div>
@@ -557,7 +557,7 @@ const Index = () => {
                 />
               </div>
 
-              <Button variant="hero" size="lg" className="w-full text-lg">
+              <Button variant="cta" size="lg" className="w-full text-lg">
                 Let's Talk
               </Button>
             </form>
