@@ -192,7 +192,7 @@ const Index = () => {
           </div>
           
           <div className="relative animate-fade-in-up">
-            <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-accent/20 rounded-3xl blur-3xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-secondary/30 to-secondary/10 rounded-3xl blur-3xl" />
             <img 
               src={heroProfile} 
               alt="Jonathan Profile" 
@@ -203,7 +203,8 @@ const Index = () => {
       </section>
 
       {/* What Makes Me Different */}
-      <section className="container mx-auto px-4 py-20">
+      <section className="container mx-auto px-4 py-20 relative">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl -z-10" />
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
             What Makes Me <span className="text-accent">Different</span>
@@ -289,7 +290,9 @@ const Index = () => {
       </section>
 
       {/* What It's Like Working With Me */}
-      <section className="container mx-auto px-4 py-20 bg-card/30">
+      <section className="container mx-auto px-4 py-20 bg-card/30 relative overflow-hidden">
+        <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-secondary/15 rounded-full blur-3xl -z-10" />
+        <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-3xl -z-10" />
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
             What It's Like Working With Me
@@ -303,7 +306,8 @@ const Index = () => {
       </section>
 
       {/* Recent Projects */}
-      <section className="container mx-auto px-4 py-20">
+      <section className="container mx-auto px-4 py-20 relative">
+        <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-secondary/15 rounded-full blur-3xl -z-10" />
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
             Recent Projects
@@ -475,7 +479,7 @@ const Index = () => {
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="relative animate-fade-in">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl blur-3xl" />
+              <div className="absolute inset-0 bg-gradient-to-br from-secondary/30 to-secondary/10 rounded-3xl blur-3xl" />
               <img 
                 src={promiseProfile} 
                 alt="Jonathan Promise" 
@@ -511,7 +515,8 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="container mx-auto px-4 py-20 bg-card/30">
+      <section className="container mx-auto px-4 py-20 bg-card/30 relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-secondary/15 rounded-full blur-3xl -z-10" />
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
